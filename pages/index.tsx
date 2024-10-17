@@ -27,18 +27,22 @@ export default function IndexPage() {
       console.log("🍺CloudStorageWallet",CloudStorageWallet);
       console.log("🍺CloudStorageWallet.init",CloudStorageWallet.init);
       const kp = await CloudStorageWallet.init("hellopath")
-      console.log(
-        kp.keypair
-      )
+      if(kp && kp?.keypair && kp?.rawKp && kp.keypair?.evmKp && kp.keypair.evmKp?.address && kp.keypair?.solKp && kp.keypair.solKp?.address && kp.keypair?.tonKp && kp.keypair.tonKp?.address )
+      {
+        console.log(
+          kp.keypair
+        )
+  
+        setKeypair(
+          {
+            raw : kp.rawKp,
+            evmAddress:kp.keypair.evmKp.address.toString(),
+            solanaAddress:kp.keypair.solKp.address.toString(),
+            tonAddress:kp.keypair.tonKp.address.toString(),
+          }
+        )
+      }
 
-      setKeypair(
-        {
-          raw : kp.rawKp,
-          evmAddress:kp.keypair.evmKp.address.toString(),
-          solanaAddress:kp.keypair.solKp.address.toString(),
-          tonAddress:kp.keypair.tonKp.address.toString(),
-        }
-      )
     }
     onload().catch(console.error);;
   }, [])
